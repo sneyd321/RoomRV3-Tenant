@@ -1,0 +1,9 @@
+mutation loginLandlord($login: LoginLandlordInput!){
+	loginLandlord(login: $login) {
+        firstName,
+        lastName,
+        email,
+        deviceId,
+        id
+    }
+}
