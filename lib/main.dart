@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const SignUpPage(firstName: "Ryan", lastName: "Sneyd", email: "ryan.sneyd@hotmail.com", houseKey: "8T5ST7", documentURL: "https://storage.googleapis.com/roomr-222721.appspot.com/OntarioLease/Lease_123.pdf"),//TenantViewPager(houseKey: "Z14M4C", tenant: Tenant(),), //const LoginPage(email: "", password: "", houseKey: "",),LoginPage(email: "", password: "", houseKey: "",),
+      home: const LoginPage(email: "", password: "", houseKey: ""),
       onGenerateRoute: (settings) {
         Widget? pageView;
         if (settings.name != null) {

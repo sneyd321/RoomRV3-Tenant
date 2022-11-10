@@ -22,7 +22,7 @@ class _QueryHelperState extends State<QueryHelper> {
   bool isVisible = false;
 
   Future<String> getQuery(String name) async {
-    return await rootBundle.loadString('${name}Query.txt');
+    return await rootBundle.loadString('assets/${name}Query.txt');
   }
 
   @override
