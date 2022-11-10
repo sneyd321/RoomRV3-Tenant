@@ -44,9 +44,6 @@ class _LoginPageState extends State<LoginPage> {
     emailTextEditingController.text = widget.email;
     passwordTextEditingController.text = widget.password;
     houseKeyTextEditingController.text = widget.houseKey;
-    emailTextEditingController.text = "d@s.com";
-    passwordTextEditingController.text = "aaaaaa";
-    houseKeyTextEditingController.text = "RHY0TA";
     FirebaseConfiguration()
         .getToken()
         .then((value) => loginTenant.deviceId = value ?? "");

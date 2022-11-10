@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:camera_example/business_logic/fields/field.dart';
 import 'package:camera_example/business_logic/tenant.dart';
+import 'package:camera_example/pages/login_page.dart';
 import 'package:camera_example/services/graphql_client.dart';
 import 'package:camera_example/widgets/Buttons/PrimaryButton.dart';
 import 'package:camera_example/widgets/cards/download_lease_notification.dart';
@@ -61,7 +62,12 @@ class _SignUpPageState extends State<SignUpPage> {
         client: GQLClient().getClient(),
         child: MutationHelper(
             mutationName: "createTenant",
-            onComplete: ((json) {}),
+            onComplete: ((json) {
+              Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => LoginPage(email: widget.email, password: password, houseKey: widget.houseKey)),
+  );
+            }),
             builder: ((runMutation) {
               return Scaffold(
                 appBar: AppBar(
