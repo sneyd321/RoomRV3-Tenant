@@ -1,8 +1,8 @@
 
+import 'package:camera_example/business_logic/maintenance_ticket_notification.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../business_logic/maintenance_ticket_notification.dart';
 import '../../business_logic/tenant.dart';
 import '../../pages/comments_page.dart';
 import '../Buttons/SecondaryButton.dart';

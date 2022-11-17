@@ -1,9 +1,9 @@
+import 'package:camera_example/services/notification/download_lease_notification.dart';
 import 'package:camera_example/services/web_network.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/_network.dart';
-import '../../services/notification/download_lease_notification.dart';
 
 class DownloadLeaseNotificationCard extends StatefulWidget {
   final String documentURL;

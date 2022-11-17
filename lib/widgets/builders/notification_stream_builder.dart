@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import '../../../business_logic/house.dart';
 import '../../business_logic/maintenance_ticket_notification.dart';
 import '../../business_logic/tenant.dart';
-import '../Cards/download_lease_notification.dart';
-import '../Cards/maintenance_ticket_card.dart';
-import '../Listviews/CardSliverListView.dart';
+import '../cards/download_lease_notification.dart';
+import '../cards/maintenance_ticket_card.dart';
+import '../listviews/CardSliverListView.dart';
 
 
 class NotificationStreamBuilder extends StatefulWidget {
