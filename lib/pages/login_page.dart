@@ -9,6 +9,7 @@ import 'package:camera_example/widgets/form_fields/PasswordFormField.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../services/FirebaseConfig.dart';
@@ -41,9 +42,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
     emailTextEditingController.text = widget.email;
     passwordTextEditingController.text = widget.password;
     houseKeyTextEditingController.text = widget.houseKey;
+    SharedPreferences.getInstance().then((value) {
+      String? sharedPreferencesHouseKey = value.getString("houseKey");
+      if (sharedPreferencesHouseKey != null) {
+        houseKeyTextEditingController.text = sharedPreferencesHouseKey;
+      }
+    });
+
     FirebaseConfiguration()
         .getToken()
         .then((value) => loginTenant.deviceId = value ?? "");
@@ -117,12 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                         PrimaryButton(Icons.login, "Login", (context) async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-                            String? token =
-                                await FirebaseConfiguration().getToken();
-                                print(token);
-                            if (token != null) {
-                              loginTenant.setDeviceId(token);
-                            }
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setString("houseKey", loginTenant.houseKey);
+
                             runMutation({"login": loginTenant.toJson()});
                           }
                         })

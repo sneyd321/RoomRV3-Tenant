@@ -7,7 +7,6 @@ import 'package:camera_example/services/FirebaseConfig.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'pages/maintenance_ticket_camera_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

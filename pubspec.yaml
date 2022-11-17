@@ -48,6 +48,7 @@ dependencies:
   open_file: ^3.2.1
   signature: ^5.2.1
   universal_html: ^2.0.8
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

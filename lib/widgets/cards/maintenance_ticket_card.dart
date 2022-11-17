@@ -41,11 +41,7 @@ class MaintenanceTicketNotificationCard extends StatelessWidget {
                 ))
           ],
         ),
-        Row(children: [
-          Container(
-              margin: const EdgeInsets.only(left: 16),
-              child: const Text("This is a description"))
-        ]),
+        
         Container(
           margin: const EdgeInsets.all(8),
           height: 200,
