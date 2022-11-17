@@ -8,7 +8,7 @@ import '../../business_logic/list_items/additional_term.dart';
 import '../../business_logic/list_items/detail.dart';
 import '../../business_logic/tenant.dart';
 import '../../services/FirebaseConfig.dart';
-import '../Listviews/CardSliverGenerator.dart';
+import '../listviews/CardSliverGenerator.dart';
 import 'DetailCardReadOnly.dart';
 
 
