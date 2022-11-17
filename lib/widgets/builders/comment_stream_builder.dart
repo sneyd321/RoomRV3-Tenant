@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../business_logic/comment.dart';
 import '../../business_logic/tenant.dart';
-import '../Cards/from_comment_card.dart';
-import '../Cards/to_comment_card.dart';
-import '../Listviews/CardSliverListView.dart';
+import '../cards/from_comment_card.dart';
+import '../cards/to_comment_card.dart';
+import '../listviews/CardSliverListView.dart';
 
 class CommentStreamBuilder extends StatefulWidget {
   final ScrollController scrollController;
