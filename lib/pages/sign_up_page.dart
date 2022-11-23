@@ -128,31 +128,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Container(
                                   margin: const EdgeInsets.only(left: 4, right: 4),
                                   child: DownloadLeaseNotificationCard(
+                                    shouldSign: false,
                                       documentURL: widget.documentURL),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.all(8),
-                                  child: ClipRRect(
-                                    child: SizedBox(
-                                      height: 125,
-                                      child: Signature(
-                                        controller: controller,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 8),
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(signitureError,
-                                          style:
-                                              const TextStyle(color: Colors.red))),
-                                ),
-                                SecondaryButton(Icons.clear_outlined, "Clear",
-                                    (context) {
-                                  controller.clear();
-                                }),
                               ],
                             )),
                       ],

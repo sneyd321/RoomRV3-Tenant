@@ -51,6 +51,10 @@ class _LoginPageState extends State<LoginPage> {
       if (sharedPreferencesHouseKey != null) {
         houseKeyTextEditingController.text = sharedPreferencesHouseKey;
       }
+      String? sharedPreferencesEmail= value.getString("email");
+      if (sharedPreferencesEmail != null) {
+        emailTextEditingController.text = sharedPreferencesEmail;
+      }
     });
 
     FirebaseConfiguration()
@@ -129,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             prefs.setString("houseKey", loginTenant.houseKey);
+                            prefs.setString("email", loginTenant.email);
 
                             runMutation({"login": loginTenant.toJson()});
                           }

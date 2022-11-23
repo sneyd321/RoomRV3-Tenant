@@ -60,6 +60,7 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                   );
                 case "DownloadLease":
                   return DownloadLeaseNotificationCard(
+                    shouldSign: false,
                       documentURL: document.get("data")["documentURL"]);
               }
             },
