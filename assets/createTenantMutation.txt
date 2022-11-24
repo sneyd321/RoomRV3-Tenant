@@ -1,5 +1,5 @@
-mutation createTenant($houseKey: String!, $tenant: TenantInput!, $signature: String!, $documentURL: String!){
-	createTenant(houseKey: $houseKey, tenant: $tenant, signature: $signature, documentURL: $documentURL) {
+mutation createTenant($houseKey: String!, $tenant: TenantInput!){
+	createTenant(houseKey: $houseKey, tenant: $tenant) {
         firstName,
         lastName,
         email,

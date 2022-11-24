@@ -142,9 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         formKey.currentState!.save();
                         runMutation({
                           "houseKey": widget.houseKey,
-                          "tenant": tenant.toJson(),
-                          "signature": base64Encode(await controller.toPngBytes() ?? []),
-                          "documentURL": widget.documentURL
+                          "tenant": tenant.toJson()
                         });
                       }
                     })
