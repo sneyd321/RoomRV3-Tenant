@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../business_logic/house.dart';
+import '../business_logic/tenant.dart';
 
 class DashboardPage extends StatefulWidget {
   final House house;
-  const DashboardPage({Key? key, required this.house}) : super(key: key);
+  final Tenant tenant;
+  const DashboardPage({Key? key, required this.house, required this.tenant}) : super(key: key);
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -178,7 +180,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     })
                   ]),
                 ),
-                DownloadLeaseNotificationCard(documentURL: widget.house.lease.documentURL,)
+                DownloadLeaseNotificationCard(documentURL: widget.house.lease.documentURL, tenant: widget.tenant, houseKey: widget.house.houseKey,)
         ],
       ),
     ));

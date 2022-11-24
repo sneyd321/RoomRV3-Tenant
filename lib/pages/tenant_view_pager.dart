@@ -32,7 +32,9 @@ class _TenantViewPagerState extends State<TenantViewPager> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              leading: Icon(Icons.logout),
+              leading: IconButton(icon: Text("Exit"), onPressed: (() {
+                Navigator.pop(context);
+              }),),
               bottom: const TabBar(
                 tabs: [
                   Tab(
@@ -57,7 +59,7 @@ class _TenantViewPagerState extends State<TenantViewPager> {
                       house: house,
                       tenant: widget.tenant,
                     ),
-                    DashboardPage(house: house)
+                    DashboardPage(house: house, tenant: widget.tenant,)
                   ]);
                   }
                   return const TabBarView(children: [CircularProgressIndicator(), CircularProgressIndicator()],);

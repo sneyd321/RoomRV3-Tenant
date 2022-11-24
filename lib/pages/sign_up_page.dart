@@ -128,6 +128,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Container(
                                   margin: const EdgeInsets.only(left: 4, right: 4),
                                   child: DownloadLeaseNotificationCard(
+                                    tenant: Tenant(),
+                                    houseKey: widget.houseKey,
                                     shouldSign: false,
                                       documentURL: widget.documentURL),
                                 ),

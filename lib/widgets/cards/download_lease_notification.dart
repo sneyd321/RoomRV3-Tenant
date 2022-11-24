@@ -9,6 +9,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:signature/signature.dart';
 import 'package:universal_html/html.dart';
 
+import '../../business_logic/tenant.dart';
 import '../../graphql/mutation_helper.dart';
 import '../../services/graphql_client.dart';
 import '../../services/notification/download_lease_notification.dart';
@@ -18,11 +19,13 @@ import '../Buttons/SecondaryButton.dart';
 class DownloadLeaseNotificationCard extends StatefulWidget {
   final String documentURL;
   final bool shouldSign;
+  final String houseKey;
+  final Tenant tenant;
 
   const DownloadLeaseNotificationCard({
     Key? key,
     required this.documentURL,
-    this.shouldSign = true,
+    this.shouldSign = true, required this.houseKey, required this.tenant,
   }) : super(key: key);
 
   @override
@@ -126,6 +129,8 @@ class _DownloadLeaseNotificationCardState
                                 String base64EncodedSigniture = base64Encode(
                                     await controller.toPngBytes() ?? []);
                                 runMutation({
+                                  "houseKey": widget.houseKey,
+                                  "tenant": widget.tenant.toJson(),
                                   "signature": base64EncodedSigniture,
                                 });
                                 Navigator.pop(context);
@@ -162,7 +167,7 @@ class _DownloadLeaseNotificationCardState
                           ),
                         );
                       }),
-                      mutationName: '',
+                      mutationName: 'signLease',
                       onComplete: (json) {},
                     ),
                   );

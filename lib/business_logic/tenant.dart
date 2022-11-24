@@ -30,7 +30,9 @@ class Tenant {
       "firstName": firstName,
       "lastName": lastName,
       "password": password,
-      "email": email
+      "email": email,
+      "tenantState": tenantState,
+      "tenantPosition": tenantPosition
     };
   }
 

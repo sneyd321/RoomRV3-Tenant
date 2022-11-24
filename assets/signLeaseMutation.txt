@@ -1,0 +1,11 @@
+mutation scheduleSignTenant($houseKey: String!, $tenant: TenantSignInput!, $signature: String!){
+  scheduleSignTenant(houseKey: $houseKey, tenant: $tenant, signature: $signature) {
+    firstName,
+    lastName,
+    email,
+    tenantState,
+    houseId,
+    tenantPosition,
+    deviceId
+  }
+}
