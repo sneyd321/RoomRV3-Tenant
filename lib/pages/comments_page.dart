@@ -43,7 +43,7 @@ class _CommentsPageState extends State<CommentsPage> {
     if (_scrollController.hasClients) {
       final position = _scrollController.position.maxScrollExtent;
       _scrollController.animateTo(
-        position * 2,
+        position,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );

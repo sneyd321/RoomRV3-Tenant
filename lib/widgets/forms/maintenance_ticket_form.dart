@@ -36,11 +36,20 @@ class MaintenanceTicketForm extends StatefulWidget {
 class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
   MaintenanceTicket maintenanceTicket = MaintenanceTicket();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController descriptionTextEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     maintenanceTicket.setSender(Sender.fromTenant(widget.tenant));
+    
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    descriptionTextEditingController.dispose();
   }
 
   @override
@@ -92,7 +101,7 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
                   SimpleFormField(
                     label: "Description",
                     icon: Icons.description,
-                    textEditingController: TextEditingController(),
+                    textEditingController: descriptionTextEditingController,
                     onSaved: (value) {
                       maintenanceTicket.setDescription(Description(value!));
                     },
