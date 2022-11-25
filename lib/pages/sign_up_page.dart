@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:camera_example/business_logic/fields/field.dart';
 import 'package:camera_example/business_logic/tenant.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:signature/signature.dart';
 import '../graphql/mutation_helper.dart';
-import '../widgets/Buttons/SecondaryButton.dart';
 
 class SignUpPage extends StatefulWidget {
   final String firstName;
@@ -75,67 +73,68 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 body: Column(
                   children: [
-                    ListView(
-                      shrinkWrap: true,
-                      children: [
-                        Form(
-                            key: formKey,
-                            child: Column(
-                              children: [
-                                TwoColumnRow(
-                                    left: SimpleFormField(
-                                      icon: Icons.account_circle,
-                                      label: "First Name",
-                                      textEditingController: firstNameController,
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          Form(
+                              key: formKey,
+                              child: Column(
+                                children: [
+                                  TwoColumnRow(
+                                      left: SimpleFormField(
+                                        icon: Icons.account_circle,
+                                        label: "First Name",
+                                        textEditingController: firstNameController,
+                                        onSaved: (value) {
+                                          tenant.setFirstName(value!);
+                                        },
+                                        onValidate: ((value) {
+                                          return FirstName(value!).validate();
+                                        }),
+                                      ),
+                                      right: SimpleFormField(
+                                        icon: Icons.account_circle,
+                                        label: "Last Name",
+                                        textEditingController: lastNameController,
+                                        onSaved: (value) {
+                                          tenant.setLastName(value!);
+                                        },
+                                        onValidate: ((value) {
+                                          return LastName(value!).validate();
+                                        }),
+                                      )),
+                                  SimpleFormField(
+                                      icon: Icons.password,
+                                      label: "Password",
+                                      textEditingController: passwordController,
+                                      onSaved: (value) {},
+                                      onValidate: ((value) {
+                                        password = value!;
+                                        return Password(value).validate();
+                                      })),
+                                  SimpleFormField(
+                                      icon: Icons.password_outlined,
+                                      label: "Re-Type Password",
+                                      textEditingController: reTypePasswordController,
                                       onSaved: (value) {
-                                        tenant.setFirstName(value!);
+                                        tenant.setPassword(value!);
                                       },
                                       onValidate: ((value) {
-                                        return FirstName(value!).validate();
-                                      }),
-                                    ),
-                                    right: SimpleFormField(
-                                      icon: Icons.account_circle,
-                                      label: "Last Name",
-                                      textEditingController: lastNameController,
-                                      onSaved: (value) {
-                                        tenant.setLastName(value!);
-                                      },
-                                      onValidate: ((value) {
-                                        return LastName(value!).validate();
-                                      }),
-                                    )),
-                                SimpleFormField(
-                                    icon: Icons.password,
-                                    label: "Password",
-                                    textEditingController: passwordController,
-                                    onSaved: (value) {},
-                                    onValidate: ((value) {
-                                      password = value!;
-                                      return Password(value).validate();
-                                    })),
-                                SimpleFormField(
-                                    icon: Icons.password_outlined,
-                                    label: "Re-Type Password",
-                                    textEditingController: reTypePasswordController,
-                                    onSaved: (value) {
-                                      tenant.setPassword(value!);
-                                    },
-                                    onValidate: ((value) {
-                                      return ReTypePassword(value!)
-                                          .validatePassword(password);
-                                    })),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 4, right: 4),
-                                  child: DownloadLeaseNotificationCard(
-                                    tenant: Tenant(),
-                                    houseKey: widget.houseKey,
-                                    shouldSign: false,
-                                      documentURL: widget.documentURL),
-                                ),
-                              ],
-                            )),
-                      ],
+                                        return ReTypePassword(value!)
+                                            .validatePassword(password);
+                                      })),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 4, right: 4),
+                                    child: DownloadLeaseNotificationCard(
+                                      tenant: Tenant(),
+                                      houseKey: widget.houseKey,
+                                      shouldSign: false,
+                                        documentURL: widget.documentURL),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
                     PrimaryButton(Icons.account_box, "Create Account", (context)  async {
                       if (formKey.currentState!.validate()) {
