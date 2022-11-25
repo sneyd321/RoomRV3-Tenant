@@ -104,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         }),
                                       )),
                                   SimpleFormField(
-                                      icon: Icons.password,
+                                      icon: Icons.lock,
                                       label: "Password",
                                       textEditingController: passwordController,
                                       onSaved: (value) {},
@@ -113,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         return Password(value).validate();
                                       })),
                                   SimpleFormField(
-                                      icon: Icons.password_outlined,
+                                      icon: Icons.lock,
                                       label: "Re-Type Password",
                                       textEditingController: reTypePasswordController,
                                       onSaved: (value) {
