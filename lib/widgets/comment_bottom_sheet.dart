@@ -1,6 +1,8 @@
-import 'package:camera_example/widgets/Buttons/PrimaryButton.dart';
-import 'package:camera_example/widgets/Buttons/SecondaryButton.dart';
+
 import 'package:flutter/material.dart';
+
+import 'buttons/PrimaryButton.dart';
+import 'buttons/SecondaryButton.dart';
 
 class CommentBottomSheet extends StatelessWidget {
   const CommentBottomSheet({Key? key}) : super(key: key);

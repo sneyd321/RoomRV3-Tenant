@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:camera_example/main.dart';
-import 'package:camera_example/widgets/Buttons/ProfilePicture.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/comment.dart';
+import '../buttons/ProfilePicture.dart';
 
 class ToCommentCard extends StatelessWidget {
   final Comment comment;

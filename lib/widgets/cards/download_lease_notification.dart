@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:camera_example/graphql/mutation_helper.dart';
 import 'package:camera_example/services/_network.dart';
 import 'package:camera_example/services/graphql_client.dart';
-import 'package:camera_example/widgets/buttons/CallToActionButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +12,7 @@ import 'package:signature/signature.dart';
 
 import '../../services/notification/download_lease_notification.dart';
 import '../../services/web_network.dart';
+import '../buttons/CallToActionButton.dart';
 
 class DownloadLeaseNotificationCard extends StatefulWidget {
   final QueryDocumentSnapshot document;

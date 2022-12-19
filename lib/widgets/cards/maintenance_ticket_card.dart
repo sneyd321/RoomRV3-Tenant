@@ -1,9 +1,10 @@
 import 'package:camera_example/business_logic/tenant.dart';
-import 'package:camera_example/widgets/Buttons/IconTextColumn.dart';
 import 'package:camera_example/widgets/Navigation/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../buttons/IconTextColumn.dart';
 
 class MaintenanceTicketNotificationCard extends StatefulWidget {
   final Tenant tenant;

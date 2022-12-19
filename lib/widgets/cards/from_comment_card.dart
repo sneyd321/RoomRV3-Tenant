@@ -4,7 +4,7 @@ import 'package:camera_example/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/comment.dart';
-import '../Buttons/ProfilePicture.dart';
+import '../buttons/ProfilePicture.dart';
 
 class FromCommentCard extends StatelessWidget {
   final Comment comment;
