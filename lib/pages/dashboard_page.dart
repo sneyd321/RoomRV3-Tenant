@@ -20,7 +20,7 @@ import '../business_logic/house.dart';
 import '../business_logic/tenant.dart';
 import '../graphql/mutation_helper.dart';
 import '../graphql/query_helper.dart';
-import '../widgets/Buttons/CallToActionButton.dart';
+import '../widgets/buttons/CallToActionButton.dart';
 import 'create_maintenance_ticket_page.dart';
 
 class DashboardPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:camera_example/business_logic/login_tenant.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/main.dart';
 import 'package:camera_example/services/graphql_client.dart';
-import 'package:camera_example/widgets/Buttons/CallToActionButton.dart';
+import 'package:camera_example/widgets/buttons/CallToActionButton.dart';
 import 'package:camera_example/widgets/form_fields/EmailFormField.dart';
 import 'package:camera_example/widgets/form_fields/PasswordFormField.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';

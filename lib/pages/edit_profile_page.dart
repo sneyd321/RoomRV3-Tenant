@@ -9,9 +9,9 @@ import 'package:image_picker/image_picker.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../services/graphql_client.dart';
-import '../widgets/Buttons/CallToActionButton.dart';
-import '../widgets/Buttons/MemoryPhoto.dart';
-import '../widgets/Buttons/ProfilePicture.dart';
+import '../widgets/buttons/CallToActionButton.dart';
+import '../widgets/buttons/MemoryPhoto.dart';
+import '../widgets/buttons/ProfilePicture.dart';
 import '../widgets/form_fields/SimpleFormField.dart';
 import '../widgets/form_fields/TwoColumnRow.dart';
 

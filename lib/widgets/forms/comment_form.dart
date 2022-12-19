@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:camera_example/widgets/Buttons/CallToActionButton.dart';
-import 'package:camera_example/widgets/Buttons/SecondaryActionButton.dart';
+import 'package:camera_example/widgets/buttons/CallToActionButton.dart';
+import 'package:camera_example/widgets/buttons/SecondaryActionButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,8 +15,8 @@ import '../../../pages/comment_camera_page.dart';
 import '../../Helper/BottomSheetHelper.dart';
 import '../../business_logic/tenant.dart';
 import '../../services/FirebaseConfig.dart';
-import '../Buttons/PrimaryButton.dart';
-import '../Buttons/SecondaryButton.dart';
+import '../buttons/PrimaryButton.dart';
+import '../buttons/SecondaryButton.dart';
 import '../form_fields/SimpleFormField.dart';
 
 class CommentForm extends StatefulWidget {
