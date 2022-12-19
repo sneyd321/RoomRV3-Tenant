@@ -1,5 +1,5 @@
-mutation loginTenant($login: LoginTenantInput!){
-	loginTenant(login: $login) {
+mutation updateTenant($tenant: TenantInput!){
+	updateTenant(tenant: $tenant) {
         firstName,
         lastName,
         email,

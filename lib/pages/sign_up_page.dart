@@ -1,8 +1,8 @@
-
 import 'package:camera_example/business_logic/fields/field.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/pages/login_page.dart';
 import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/widgets/Buttons/CallToActionButton.dart';
 import 'package:camera_example/widgets/Buttons/PrimaryButton.dart';
 import 'package:camera_example/widgets/cards/download_lease_notification.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';
@@ -36,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
       SignatureController(exportBackgroundColor: Colors.white);
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController reTypePasswordController =
       TextEditingController();
@@ -62,9 +63,13 @@ class _SignUpPageState extends State<SignUpPage> {
             mutationName: "createTenant",
             onComplete: ((json) {
               Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => LoginPage(email: widget.email, password: password, houseKey: widget.houseKey)),
-  );
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LoginPage(
+                        email: widget.email,
+                        password: password,
+                        houseKey: widget.houseKey)),
+              );
             }),
             builder: ((runMutation) {
               return Scaffold(
@@ -84,7 +89,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       left: SimpleFormField(
                                         icon: Icons.account_circle,
                                         label: "First Name",
-                                        textEditingController: firstNameController,
+                                        textEditingController:
+                                            firstNameController,
                                         onSaved: (value) {
                                           tenant.setFirstName(value!);
                                         },
@@ -95,7 +101,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       right: SimpleFormField(
                                         icon: Icons.account_circle,
                                         label: "Last Name",
-                                        textEditingController: lastNameController,
+                                        textEditingController:
+                                            lastNameController,
                                         onSaved: (value) {
                                           tenant.setLastName(value!);
                                         },
@@ -103,6 +110,18 @@ class _SignUpPageState extends State<SignUpPage> {
                                           return LastName(value!).validate();
                                         }),
                                       )),
+                                  SimpleFormField(
+                                    icon: Icons.phone_android,
+                                    label: "Phone Number",
+                                    textEditingController:
+                                        phoneNumberController,
+                                    onSaved: (value) {
+                                      tenant.setPhoneNumber(value!);
+                                    },
+                                    onValidate: ((value) {
+                                      return PhoneNumber(value!).validate();
+                                    }),
+                                  ),
                                   SimpleFormField(
                                       icon: Icons.lock,
                                       label: "Password",
@@ -115,7 +134,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                   SimpleFormField(
                                       icon: Icons.lock,
                                       label: "Re-Type Password",
-                                      textEditingController: reTypePasswordController,
+                                      textEditingController:
+                                          reTypePasswordController,
                                       onSaved: (value) {
                                         tenant.setPassword(value!);
                                       },
@@ -123,28 +143,37 @@ class _SignUpPageState extends State<SignUpPage> {
                                         return ReTypePassword(value!)
                                             .validatePassword(password);
                                       })),
+                                  /*
                                   Container(
-                                    margin: const EdgeInsets.only(left: 4, right: 4),
+                                    margin: const EdgeInsets.only(
+                                        left: 4, right: 4),
                                     child: DownloadLeaseNotificationCard(
-                                      tenant: Tenant(),
-                                      houseKey: widget.houseKey,
-                                      shouldSign: false,
+                                        tenant: Tenant(),
+                                        houseKey: widget.houseKey,
+                                        shouldSign: false,
                                         documentURL: widget.documentURL),
                                   ),
+                                  */
                                 ],
                               )),
                         ],
                       ),
                     ),
-                    PrimaryButton(Icons.account_box, "Create Account", (context)  async {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        runMutation({
-                          "houseKey": widget.houseKey,
-                          "tenant": tenant.toJson()
-                        });
-                      }
-                    })
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      width: MediaQuery.of(context).size.width,
+                      child: CallToActionButton(
+                          text: "Create Account",
+                          onClick: () async {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              runMutation({
+                                "houseKey": widget.houseKey,
+                                "tenant": tenant.toUpdateStateJson()
+                              });
+                            }
+                          }),
+                    )
                   ],
                 ),
               );

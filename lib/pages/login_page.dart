@@ -1,9 +1,10 @@
 import 'package:camera_example/business_logic/fields/field.dart';
+import 'package:camera_example/business_logic/house.dart';
 import 'package:camera_example/business_logic/login_tenant.dart';
 import 'package:camera_example/business_logic/tenant.dart';
-import 'package:camera_example/pages/tenant_view_pager.dart';
+import 'package:camera_example/main.dart';
 import 'package:camera_example/services/graphql_client.dart';
-import 'package:camera_example/widgets/Buttons/PrimaryButton.dart';
+import 'package:camera_example/widgets/Buttons/CallToActionButton.dart';
 import 'package:camera_example/widgets/form_fields/EmailFormField.dart';
 import 'package:camera_example/widgets/form_fields/PasswordFormField.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';
@@ -13,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../services/FirebaseConfig.dart';
+import '../widgets/Navigation/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   final String email;
@@ -29,7 +31,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with RouteAware {
   final TextEditingController emailTextEditingController =
       TextEditingController();
   final TextEditingController passwordTextEditingController =
@@ -38,11 +40,13 @@ class _LoginPageState extends State<LoginPage> {
       TextEditingController();
   final LoginTenant loginTenant = LoginTenant();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late MultiSourceResult<Object?> Function(Map<String, dynamic> p1,
+      {Object? optimisticResult}) runMutation;
+  bool lock = true;
 
   @override
   void initState() {
     super.initState();
-
     emailTextEditingController.text = widget.email;
     passwordTextEditingController.text = widget.password;
     houseKeyTextEditingController.text = widget.houseKey;
@@ -51,16 +55,29 @@ class _LoginPageState extends State<LoginPage> {
       if (sharedPreferencesHouseKey != null) {
         houseKeyTextEditingController.text = sharedPreferencesHouseKey;
       }
-      String? sharedPreferencesEmail= value.getString("email");
+      String? sharedPreferencesEmail = value.getString("email");
       if (sharedPreferencesEmail != null) {
         emailTextEditingController.text = sharedPreferencesEmail;
       }
     });
-
     FirebaseConfiguration()
         .getToken()
         .then((value) => loginTenant.deviceId = value ?? "");
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  void login() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -69,77 +86,95 @@ class _LoginPageState extends State<LoginPage> {
       child: MutationHelper(
           mutationName: "loginTenant",
           onComplete: (json) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => TenantViewPager(
-                        tenant: Tenant.fromJson(json),
-                        houseKey: loginTenant.houseKey,
-                      )),
-            );
+            Tenant tenant = Tenant.fromJson(json);
+            House house = House();
+            house.houseKey = loginTenant.houseKey;
+            Navigation().navigateToDashboardPage(context, tenant, house);
           },
           builder: (runMutation) {
             return SafeArea(
                 child: Scaffold(
-              body: SingleChildScrollView(
-                child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.only(
-                              top: 16,
-                            ),
-                            child: const Center(
-                                child: Text(
-                              "RoomR",
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 36),
-                            ))),
-                        const SizedBox(
-                          height: 200,
-                        ),
-                        EmailFormField(
-                          textEditingController: emailTextEditingController,
-                          onSaved: ((email) {
-                            loginTenant.setEmail(email.value);
-                          }),
-                        ),
-                        PasswordFormField(
-                            textEditingController:
-                                passwordTextEditingController,
-                            onSaved: (value) {
-                              loginTenant.setPassword(value!);
-                            },
-                            label: "Password",
-                            icon: Icons.password,
-                            onValidate: (value) {
-                              return Password(value!).validate();
-                            }),
-                        SimpleFormField(
-                          icon: Icons.key,
-                          label: "House Key",
-                          textEditingController: houseKeyTextEditingController,
-                          onSaved: ((value) {
-                            loginTenant.setHouseKey(value!);
-                          }),
-                          onValidate: ((value) {
-                            return Password(value!).validate();
-                          }),
-                        ),
-                        PrimaryButton(Icons.login, "Login", (context) async {
+              body: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 64,
+                                  ),
+                                  child: Column(
+                                    children: const [
+                                      Text(
+                                        "Room Renting",
+                                        style: TextStyle(
+                                            color: Color(primaryColour),
+                                            fontSize: 36),
+                                      ),
+                                      Text(
+                                        "Tenant",
+                                        style: TextStyle(
+                                            color: Colors.blue, fontSize: 28),
+                                      ),
+                                    ],
+                                  )),
+                              const SizedBox(
+                                height: 200,
+                              ),
+                              EmailFormField(
+                                textEditingController:
+                                    emailTextEditingController,
+                                onSaved: ((email) {
+                                  loginTenant.setEmail(email.value);
+                                }),
+                              ),
+                              PasswordFormField(
+                                  textEditingController:
+                                      passwordTextEditingController,
+                                  onSaved: (value) {
+                                    loginTenant.setPassword(value!);
+                                  },
+                                  label: "Password",
+                                  icon: Icons.password,
+                                  onValidate: (value) {
+                                    return Password(value!).validate();
+                                  }),
+                              SimpleFormField(
+                                icon: Icons.key,
+                                label: "House Key",
+                                textEditingController:
+                                    houseKeyTextEditingController,
+                                onSaved: ((value) {
+                                  loginTenant.setHouseKey(value!);
+                                }),
+                                onValidate: ((value) {
+                                  return Password(value!).validate();
+                                }),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(8),
+                    width: MediaQuery.of(context).size.width,
+                    child: CallToActionButton(
+                        text: "Login",
+                        onClick: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             prefs.setString("houseKey", loginTenant.houseKey);
                             prefs.setString("email", loginTenant.email);
-
                             runMutation({"login": loginTenant.toJson()});
                           }
-                        })
-                      ],
-                    )),
+                        }),
+                  ),
+                ],
               ),
             ));
           }),

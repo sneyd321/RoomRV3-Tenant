@@ -49,6 +49,7 @@ dependencies:
   signature: ^5.2.1
   universal_html: ^2.0.8
   shared_preferences: ^2.0.15
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,12 @@ flutter:
     - assets/addTenantEmailMutation.txt
     - assets/createTempTenantMutation.txt
     - assets/signLeaseMutation.txt
+    - assets/house.jpg
+    - assets/updateTenantMutation.txt
+    - assets/deleteTenantMutation.txt
+    - assets/profile1.jpg
+    - assets/profile1.png
+    - assets/scheduleTenantProfileMutation.txt
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,9 +4,11 @@ class Tenant {
   String lastName = "";
   String email = "";
   String password = "";
-  String tenantState = "";
-  int tenantPosition = 0;
+  String phoneNumber = "";
+  String profileURL = "";
+  String state = "";
   int houseId = 0;
+  String deviceId = "";
 
 
   Tenant();
@@ -15,8 +17,9 @@ class Tenant {
     firstName = json["firstName"];
     lastName = json["lastName"];
     email = json["email"];
-    tenantState = json["tenantState"];
-    tenantPosition = json["tenantPosition"];
+    phoneNumber = json["phoneNumber"];
+    profileURL = json["profileURL"];
+    state = json["state"];
     houseId = json["houseId"];
   }
 
@@ -31,10 +34,31 @@ class Tenant {
       "lastName": lastName,
       "password": password,
       "email": email,
-      "tenantState": tenantState,
-      "tenantPosition": tenantPosition
     };
   }
+
+
+
+  Map<String, dynamic> toUpdateStateJson() {
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "phoneNumber": phoneNumber,
+      "email": email,
+      "password": password,
+    };
+  }
+
+  Map<String, dynamic> toTenantInput() {
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "phoneNumber": phoneNumber,
+      "profileURL": profileURL,
+      "email": email,
+    };
+  }
+
 
   void setFirstName(String value) {
     firstName = value;
@@ -53,7 +77,11 @@ class Tenant {
   }
 
   void setState(String state) {
-    tenantState = state;
+    this.state = state;
+  }
+
+  void setPhoneNumber(String value) {
+    phoneNumber = value;
   }
 
 }

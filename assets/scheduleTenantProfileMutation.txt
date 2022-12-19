@@ -1,0 +1,8 @@
+mutation scheduleTenantProfile($houseKey: String!, $tenantProfile: TenantProfileInput!, $image: String!){
+	scheduleTenantProfile(houseKey: $houseKey, tenantProfile: $tenantProfile, image: $image) {
+        firebaseId,
+        imageURL,
+        firstName,
+        lastName
+    }
+}

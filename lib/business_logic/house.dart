@@ -1,5 +1,4 @@
 import 'package:camera_example/business_logic/lease.dart';
-import 'package:camera_example/business_logic/list_items/additional_term.dart';
 import 'package:camera_example/business_logic/list_items/deposit.dart';
 import 'package:flutter/cupertino.dart';
 

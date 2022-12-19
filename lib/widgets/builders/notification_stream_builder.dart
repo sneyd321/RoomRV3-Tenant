@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/house.dart';
-import '../../business_logic/maintenance_ticket_notification.dart';
 import '../../business_logic/tenant.dart';
-import '../cards/download_lease_notification.dart';
 import '../cards/maintenance_ticket_card.dart';
 import '../listviews/CardSliverListView.dart';
 
@@ -56,10 +53,8 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
               switch (document.get("Name")) {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(
+                    document: document,
                     tenant: widget.tenant,
-                    maintenanceTicketNotification:
-                        MaintenanceTicketNotification.fromJson(
-                            document.data() as Map<String, dynamic>),
                   );
               }
             },

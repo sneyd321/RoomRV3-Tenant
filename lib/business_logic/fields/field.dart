@@ -267,3 +267,16 @@ class CommentField extends Field {
   }
 
 }
+
+class PhoneNumber extends Field {
+  PhoneNumber(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a phone number";
+    }
+    return null;
+  }
+
+}

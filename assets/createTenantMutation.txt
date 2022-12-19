@@ -1,11 +1,7 @@
-mutation createTenant($houseKey: String!, $tenant: TenantSignInput!){
+mutation createTenant($houseKey: String!, $tenant: TenantSignUpInput!){
 	createTenant(houseKey: $houseKey, tenant: $tenant) {
         firstName,
         lastName,
         email,
-        tenantState,
-        houseId,
-        tenantPosition,
-        deviceId
     }
 }

@@ -5,7 +5,9 @@ import 'package:camera_example/business_logic/description.dart';
 import 'package:camera_example/business_logic/fields/field.dart';
 import 'package:camera_example/business_logic/maintenance_ticket.dart';
 import 'package:camera_example/business_logic/sender.dart';
+import 'package:camera_example/widgets/Buttons/CallToActionButton.dart';
 import 'package:camera_example/widgets/Buttons/PrimaryButton.dart';
+import 'package:camera_example/widgets/Buttons/SecondaryActionButton.dart';
 import 'package:camera_example/widgets/Buttons/SecondaryButton.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';
 import 'package:camera_example/widgets/form_fields/SimpleRadioGroup.dart';
@@ -57,7 +59,6 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
     return MutationHelper(
       mutationName: 'createMaintenanceTicket',
       onComplete: (json) {
-        Navigator.pop(context);
         Navigator.pop(context);
       },
       builder: (runMutation) {
@@ -111,15 +112,11 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
                   ),
                 ]),
               ),
-              TwoColumnRow(
-                  left: SecondaryButton(Icons.chevron_left, "Back", (context) {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                  }),
-                  right: PrimaryButton(
-                    Icons.upload,
-                    "Send",
-                    (context) async {
-                      if (formKey.currentState!.validate()) {
+              Container(
+                margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: CallToActionButton(text: "Report", onClick: () async{
+                  if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         runMutation({
                           "houseKey": widget.houseKey,
@@ -127,8 +124,16 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
                           "image": base64Encode(await widget.file.readAsBytes())
                         });
                       }
-                    },
-                  ))
+                },),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: SecondaryActionButton(text: "Back", onClick: () {
+                  Navigator.pop(context);
+                },),
+              )
+              
             ],
           ),
         );

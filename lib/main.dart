@@ -2,7 +2,6 @@ import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/firebase_options.dart';
 import 'package:camera_example/pages/login_page.dart';
 import 'package:camera_example/pages/sign_up_page.dart';
-import 'package:camera_example/pages/tenant_view_pager.dart';
 import 'package:camera_example/services/FirebaseConfig.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,26 +9,24 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-
   print("Handling a background message: ${message.messageId}");
 }
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseConfiguration().initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   await initHiveForFlutter();
-
   runApp(MyApp());
 }
+
+const int primaryColour = 0xFF000000;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -38,6 +35,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorObservers: [ routeObserver ],
+      theme: ThemeData(
+          primarySwatch: const MaterialColor(
+        primaryColour,
+        <int, Color>{
+          50: Color(0xFF000000),
+          100: Color(0xFF000000),
+          200: Color(0xFF000000),
+          300: Color(0xFF000000),
+          400: Color(0xFF000000),
+          500: Color(primaryColour),
+          600: Color(0xFF000000),
+          700: Color(0xFF000000),
+          800: Color(0xFF000000),
+          900: Color(0xFF000000),
+        },
+      )),
       home: const LoginPage(email: "", password: "", houseKey: ""),
       onGenerateRoute: (settings) {
         Widget? pageView;
@@ -51,7 +65,12 @@ class MyApp extends StatelessWidget {
               String email = uriData.queryParameters["email"] ?? "";
               String houseKey = uriData.queryParameters["houseKey"] ?? "";
               String documentURL = uriData.queryParameters["documentURL"] ?? "";
-              pageView = SignUpPage(firstName: firstName, lastName: lastName, email: email, houseKey: houseKey, documentURL: documentURL);
+              pageView = SignUpPage(
+                  firstName: firstName,
+                  lastName: lastName,
+                  email: email,
+                  houseKey: houseKey,
+                  documentURL: documentURL);
               break;
           }
         }

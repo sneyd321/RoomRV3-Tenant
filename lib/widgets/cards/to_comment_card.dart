@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:camera_example/main.dart';
+import 'package:camera_example/widgets/Buttons/ProfilePicture.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/comment.dart';
@@ -50,10 +52,6 @@ class ToCommentCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    padding: const EdgeInsets.all(8),
-                    child: Text(comment.getFullName())),
-                  Container(
                     margin: const EdgeInsets.only(right: 8),
                     padding: const EdgeInsets.all(8),
                     decoration: const BoxDecoration(
@@ -62,19 +60,24 @@ class ToCommentCard extends StatelessWidget {
                     child: getCommentType(comment),
                   ),
                   Container(
-                      margin: const EdgeInsets.only(bottom: 4, right: 4, top: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(comment.timestamp.getCurrentTimestamp()),
-                    ),
-                
+                    margin: const EdgeInsets.only(bottom: 4, right: 4, top: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(comment.timestamp.getCurrentTimestamp()),
+                  ),
                 ],
               ),
             ),
-            const CircleAvatar(
-              child: Icon(
-                Icons.account_circle,
-              ),
-            ),
+            ProfilePicture(
+                profileURL: comment.profileURL,
+                text: comment.getFullName(),
+                profileColor: Colors.blueGrey,
+                textColor: Color(primaryColour),
+                onClick: () {
+                  const snackBar = SnackBar(
+                    content: Text('To add photo go to more > edit profile'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }),
           ],
         ),
       ),
