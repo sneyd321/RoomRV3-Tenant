@@ -2,7 +2,6 @@ import 'package:camera_example/business_logic/house.dart';
 import 'package:camera_example/widgets/builders/notification_stream_builder.dart';
 import 'package:flutter/material.dart';
 
-import '../business_logic/list_items/deposit.dart';
 import '../business_logic/tenant.dart';
 import 'maintenance_ticket_camera_page.dart';
 

@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/tenant.dart';
-import '../Listviews/CardSliverListView.dart';
 import '../cards/ApproveTenantNotification.dart';
 import '../cards/custom_notification_card.dart';
 import '../cards/download_lease_notification.dart';
 import '../cards/maintenance_ticket_card.dart';
+import '../listviews/CardSliverListView.dart';
 
 class NotificationSearch extends StatefulWidget {
   final Tenant tenant;

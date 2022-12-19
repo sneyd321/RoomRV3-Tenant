@@ -4,10 +4,8 @@ import 'package:camera_example/main.dart';
 import 'package:camera_example/services/_network.dart';
 import 'package:camera_example/services/graphql_client.dart';
 import 'package:camera_example/services/web_network.dart';
-import 'package:camera_example/widgets/Navigation/bottom_nav_bar.dart';
 import 'package:camera_example/widgets/Navigation/navigation.dart';
 import 'package:camera_example/widgets/builders/notifications_limit.dart';
-import 'package:camera_example/widgets/cards/HouseMenuCard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +13,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:signature/signature.dart';
 
-import '../Helper/BottomSheetHelper.dart';
 import '../business_logic/house.dart';
 import '../business_logic/tenant.dart';
 import '../graphql/mutation_helper.dart';
