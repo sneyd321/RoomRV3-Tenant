@@ -22,6 +22,7 @@ class NotificationSearch extends StatefulWidget {
 }
 
 class _NotificationSearchState extends State<NotificationSearch> {
+  int notificationCount = 0;
   final TextEditingController searchTextEditingController =
       TextEditingController();
   List<QueryDocumentSnapshot> queryDocumentSnapshots = [];
@@ -29,7 +30,10 @@ class _NotificationSearchState extends State<NotificationSearch> {
 
   @override
   Widget build(BuildContext context) {
-    queryDocumentSnapshots = widget.documents;
+    if (widget.documents.length > notificationCount) {
+      notificationCount = widget.documents.length;
+      queryDocumentSnapshots = widget.documents;
+    }
     return Column(
       children: [
         Container(

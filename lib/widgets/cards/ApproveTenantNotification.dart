@@ -121,7 +121,7 @@ class _ApproveTenantNotificationCardState
             subtitle: const Text("Signiture added"),
             trailing: IconButton(
               onPressed: () {
-                
+                showDownloadDialog();
               },
               icon: const Icon(Icons.chevron_right_rounded))),
       ),
