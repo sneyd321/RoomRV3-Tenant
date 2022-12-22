@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:camera_example/main.dart';
 import 'package:camera_example/services/_network.dart';
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:camera_example/services/web_network.dart';
 import 'package:camera_example/widgets/Navigation/navigation.dart';
 import 'package:camera_example/widgets/builders/notifications_limit.dart';

@@ -7,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 
 import '../business_logic/house.dart';
 import '../graphql/mutation_helper.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
+import '../widgets/Navigation/navigation.dart';
 import '../widgets/buttons/CallToActionButton.dart';
 import '../widgets/buttons/ProfilePicture.dart';
-import '../widgets/Navigation/navigation.dart';
 
 class ProfilePage extends StatefulWidget {
   final Tenant tenant;

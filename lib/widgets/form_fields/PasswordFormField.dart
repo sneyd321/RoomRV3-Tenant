@@ -66,7 +66,7 @@ class PasswordFormFieldState extends State<PasswordFormField> {
           setState(() {});
         },
         validator: (String? value) {
-          //return widget.onValidate(value);
+          return widget.onValidate(value);
         },
         inputFormatters: [LengthLimitingTextInputFormatter(maxCharacterLength)],
       ),

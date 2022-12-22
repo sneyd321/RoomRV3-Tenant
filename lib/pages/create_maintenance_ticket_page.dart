@@ -1,5 +1,5 @@
 
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:camera_example/widgets/forms/maintenance_ticket_form.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

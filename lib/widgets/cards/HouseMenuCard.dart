@@ -2,7 +2,7 @@
 import 'dart:ui';
 
 import 'package:camera_example/business_logic/tenant.dart';
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 

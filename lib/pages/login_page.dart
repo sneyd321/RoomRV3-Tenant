@@ -3,9 +3,10 @@ import 'package:camera_example/business_logic/house.dart';
 import 'package:camera_example/business_logic/login_tenant.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/main.dart';
-import 'package:camera_example/services/graphql_client.dart';
-import 'package:camera_example/widgets/buttons/CallToActionButton.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
+
 import 'package:camera_example/widgets/form_fields/EmailFormField.dart';
+import 'package:camera_example/widgets/form_fields/HouseKeyFormField.dart';
 import 'package:camera_example/widgets/form_fields/PasswordFormField.dart';
 import 'package:camera_example/widgets/form_fields/SimpleFormField.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../graphql/mutation_helper.dart';
 import '../services/FirebaseConfig.dart';
 import '../widgets/Navigation/navigation.dart';
+import '../widgets/buttons/CallToActionButton.dart';
 
 class LoginPage extends StatefulWidget {
   final String email;
@@ -38,11 +40,9 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
       TextEditingController();
   final TextEditingController houseKeyTextEditingController =
       TextEditingController();
+
   final LoginTenant loginTenant = LoginTenant();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late MultiSourceResult<Object?> Function(Map<String, dynamic> p1,
-      {Object? optimisticResult}) runMutation;
-  bool lock = true;
 
   @override
   void initState() {
@@ -55,11 +55,14 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
       if (sharedPreferencesHouseKey != null) {
         houseKeyTextEditingController.text = sharedPreferencesHouseKey;
       }
+
       String? sharedPreferencesEmail = value.getString("email");
       if (sharedPreferencesEmail != null) {
         emailTextEditingController.text = sharedPreferencesEmail;
       }
+
     });
+
     FirebaseConfiguration()
         .getToken()
         .then((value) => loginTenant.deviceId = value ?? "");
@@ -77,7 +80,7 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
     super.dispose();
   }
 
-  void login() async {}
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +97,7 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
           builder: (runMutation) {
             return SafeArea(
                 child: Scaffold(
+                  resizeToAvoidBottomInset: false,
               body: Column(
                 children: [
                   Expanded(
@@ -135,25 +139,17 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
                                   textEditingController:
                                       passwordTextEditingController,
                                   onSaved: (value) {
-                                    loginTenant.setPassword(value!);
+                                    
+                                    loginTenant.setPassword(value!.trim());
                                   },
                                   label: "Password",
                                   icon: Icons.password,
                                   onValidate: (value) {
                                     return Password(value!).validate();
                                   }),
-                              SimpleFormField(
-                                icon: Icons.key,
-                                label: "House Key",
-                                textEditingController:
-                                    houseKeyTextEditingController,
-                                onSaved: ((value) {
-                                  loginTenant.setHouseKey(value!);
-                                }),
-                                onValidate: ((value) {
-                                  return Password(value!).validate();
-                                }),
-                              ),
+                             HouseKeyFormField(textEditingController: houseKeyTextEditingController, onSaved: (value) {
+                              loginTenant.setHouseKey(value!);
+                             })
                             ],
                           )),
                     ),

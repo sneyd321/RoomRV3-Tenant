@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../business_logic/house.dart';
 import '../business_logic/list_items/additional_term.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 import '../widgets/listviews/CardSliverListView.dart';
 
 class AdditionalTermsPage extends StatefulWidget {

@@ -48,6 +48,12 @@ class SimpleFormFieldState extends State<SimpleFormField> {
           errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
           prefixIcon: Icon(widget.icon),
           labelText: widget.label,
+          suffixIcon: IconButton(icon: const Icon(Icons.close), onPressed: () {
+            widget.textEditingController.text = "";
+            setState(() {
+              
+            });
+          },)
         ),
         onSaved: (String? value) {
           widget.onSaved(value);

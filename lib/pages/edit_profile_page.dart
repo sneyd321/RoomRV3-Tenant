@@ -8,7 +8,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../graphql/mutation_helper.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 import '../widgets/buttons/CallToActionButton.dart';
 import '../widgets/buttons/MemoryPhoto.dart';
 import '../widgets/buttons/ProfilePicture.dart';

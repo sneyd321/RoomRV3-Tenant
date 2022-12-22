@@ -1,6 +1,6 @@
 import 'package:camera_example/graphql/mutation_helper.dart';
 import 'package:camera_example/services/_network.dart';
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

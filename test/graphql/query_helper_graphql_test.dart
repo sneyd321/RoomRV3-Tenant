@@ -5,7 +5,7 @@ import 'package:camera_example/business_logic/house.dart';
 import 'package:camera_example/business_logic/maintenance_ticket.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/graphql/query_helper.dart';
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

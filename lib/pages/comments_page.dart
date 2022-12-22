@@ -5,7 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../business_logic/maintenance_ticket.dart';
 import '../services/FirebaseConfig.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 
 import '../widgets/builders/comment_stream_builder.dart';
 import '../widgets/forms/comment_form.dart';

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:camera_example/business_logic/list_items/additional_term.dart';
 import 'package:camera_example/graphql/mutation_helper.dart';
-import 'package:camera_example/services/graphql_client.dart';
+import 'package:camera_example/graphql/graphql_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

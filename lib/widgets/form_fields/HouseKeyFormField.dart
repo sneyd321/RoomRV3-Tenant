@@ -1,28 +1,29 @@
+import 'package:camera_example/business_logic/fields/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../business_logic/field.dart';
 
+class HouseKeyFormField extends StatefulWidget {
 
-class EmailFormField extends StatefulWidget {
-
-  final void Function(Email value) onSaved;
+  final void Function(String? value) onSaved;
   final TextEditingController textEditingController;
 
    
 
 
 
-  const EmailFormField({Key? key, required this.textEditingController, required this.onSaved}) : super(key: key);
+  const HouseKeyFormField({Key? key, required this.textEditingController, required this.onSaved}) : super(key: key);
 
   @override
-  State<EmailFormField> createState() => EmailFormFieldState();
+  State<HouseKeyFormField> createState() => HouseKeyFormFieldState();
 }
 
 
-class EmailFormFieldState extends State<EmailFormField> {
+class HouseKeyFormFieldState extends State<HouseKeyFormField> {
 
-  final int maxCharacterLength = 255;
+  
+  String _enteredText = "";
+  final int maxCharacterLength = 6;
 
   @override
   void dispose() {
@@ -36,14 +37,14 @@ class EmailFormFieldState extends State<EmailFormField> {
       child: TextFormField(
         controller: widget.textEditingController,
         maxLength: maxCharacterLength,
-        keyboardType: TextInputType.emailAddress,
-        maxLines: 1,
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           counterText: '${widget.textEditingController.text.length.toString()}/$maxCharacterLength',
           errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-          prefixIcon: const Icon(Icons.email),
-          labelText: "Email",
+          prefixIcon: const Icon(Icons.key),
+          labelText: "House Key",
           suffixIcon: IconButton(icon: const Icon(Icons.close), onPressed: () {
             widget.textEditingController.text = "";
             setState(() {
@@ -52,19 +53,33 @@ class EmailFormFieldState extends State<EmailFormField> {
           },)
         ),
         onSaved: (String? value) {
-          Email email = Email(value!);
-          widget.onSaved(email);
+          widget.onSaved(value);
         },
          onChanged: (value) {
-          setState(() { });
+          setState(() {
+            _enteredText = value;
+          });
         },
+        
         validator: (String? value) {
-          return Email(value!).validate();
+          return HouseKey(value!).validate();
         },
         inputFormatters: [
-          LengthLimitingTextInputFormatter(maxCharacterLength)
+          LengthLimitingTextInputFormatter(maxCharacterLength),
+          UpperCaseTextFormatter()
         ],
       ),
+    );
+  }
+}
+
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
     );
   }
 }
