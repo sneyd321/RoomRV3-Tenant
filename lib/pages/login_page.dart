@@ -60,7 +60,6 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
       if (sharedPreferencesEmail != null) {
         emailTextEditingController.text = sharedPreferencesEmail;
       }
-
     });
 
     FirebaseConfiguration()
@@ -80,8 +79,6 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
@@ -97,37 +94,35 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
           builder: (runMutation) {
             return SafeArea(
                 child: Scaffold(
-                  resizeToAvoidBottomInset: false,
+              resizeToAvoidBottomInset: false,
               body: Column(
                 children: [
+                  Container(
+                      margin: const EdgeInsets.only(
+                        top: 64,
+                      ),
+                      child: Column(
+                        children: const [
+                          Text(
+                            "Room Renting",
+                            style: TextStyle(
+                                color: Color(primaryColour), fontSize: 36),
+                          ),
+                          Text(
+                            "Tenant",
+                            style: TextStyle(color: Colors.blue, fontSize: 28),
+                          ),
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 200,
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Form(
                           key: formKey,
                           child: Column(
                             children: [
-                              Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 64,
-                                  ),
-                                  child: Column(
-                                    children: const [
-                                      Text(
-                                        "Room Renting",
-                                        style: TextStyle(
-                                            color: Color(primaryColour),
-                                            fontSize: 36),
-                                      ),
-                                      Text(
-                                        "Tenant",
-                                        style: TextStyle(
-                                            color: Colors.blue, fontSize: 28),
-                                      ),
-                                    ],
-                                  )),
-                              const SizedBox(
-                                height: 200,
-                              ),
                               EmailFormField(
                                 textEditingController:
                                     emailTextEditingController,
@@ -139,7 +134,6 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
                                   textEditingController:
                                       passwordTextEditingController,
                                   onSaved: (value) {
-                                    
                                     loginTenant.setPassword(value!.trim());
                                   },
                                   label: "Password",
@@ -147,9 +141,12 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
                                   onValidate: (value) {
                                     return Password(value!).validate();
                                   }),
-                             HouseKeyFormField(textEditingController: houseKeyTextEditingController, onSaved: (value) {
-                              loginTenant.setHouseKey(value!);
-                             })
+                              HouseKeyFormField(
+                                  textEditingController:
+                                      houseKeyTextEditingController,
+                                  onSaved: (value) {
+                                    loginTenant.setHouseKey(value!);
+                                  })
                             ],
                           )),
                     ),
