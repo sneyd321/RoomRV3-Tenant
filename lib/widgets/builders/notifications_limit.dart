@@ -1,4 +1,3 @@
-import 'package:camera_example/business_logic/tenancy_terms.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class _NotificationLimitState extends State<NotificationLimit> {
             snapshot.data!.docs;
     
         return NotificationSearch(
-            tenant: widget.tenant, documents: queryDocumentSnapshots);
+            tenant: widget.tenant, documents: queryDocumentSnapshots, house: widget.house,);
       },
     );
   }

@@ -54,7 +54,7 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(
                     document: document,
-                    tenant: widget.tenant,
+                    tenant: widget.tenant, house: widget.house,
                   );
               }
             },

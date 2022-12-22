@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           Navigation().navigateToDashboardPage(context, widget.tenant, widget.house);
           break;
         case 1:
-        Navigation().navigateToProfilePage(context, widget.tenant, widget.house);
+        Navigation().navigateToMorePage(context, widget.house, widget.tenant);
           break;
         default:
         Navigation().navigateToDashboardPage(context, widget.tenant, widget.house);
@@ -47,17 +47,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
        
                 icon: CircleAvatar(
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.dashboard, color: Colors.black,),
+                  child: Icon(Icons.notifications, color: Colors.black,),
                 ),
-                label: 'Dashboard',
+                label: 'Notifications',
               ),
               BottomNavigationBarItem(
                   backgroundColor: Colors.white,
                   icon: CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.account_circle, color: Colors.black,),
+                    child: Icon(Icons.list, color: Colors.black,),
                   ),
-                  label: "Account"),
+                  label: "More"),
             ],
             currentIndex: _selectedIndex,
             unselectedItemColor: Colors.white,

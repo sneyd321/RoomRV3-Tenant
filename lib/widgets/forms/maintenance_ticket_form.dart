@@ -35,13 +35,13 @@ class MaintenanceTicketForm extends StatefulWidget {
 class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
   MaintenanceTicket maintenanceTicket = MaintenanceTicket();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController descriptionTextEditingController = TextEditingController();
+  TextEditingController descriptionTextEditingController =
+      TextEditingController();
 
   @override
   void initState() {
     super.initState();
     maintenanceTicket.setSender(Sender.fromTenant(widget.tenant));
-    
   }
 
   @override
@@ -56,7 +56,7 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
     return MutationHelper(
       mutationName: 'createMaintenanceTicket',
       onComplete: (json) {
-        Navigator.pop(context);
+        Navigator.pop(context, "Success");
       },
       builder: (runMutation) {
         return Form(
@@ -112,25 +112,31 @@ class _MaintenanceTicketFormState extends State<MaintenanceTicketForm> {
               Container(
                 margin: const EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width,
-                child: CallToActionButton(text: "Report", onClick: () async{
-                  if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        runMutation({
-                          "houseKey": widget.houseKey,
-                          "maintenanceTicket": maintenanceTicket.toJson(),
-                          "image": base64Encode(await widget.file.readAsBytes())
-                        });
-                      }
-                },),
+                child: CallToActionButton(
+                  text: "Report",
+                  onClick: () async {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      runMutation({
+                        "houseKey": widget.houseKey,
+                        "maintenanceTicket": maintenanceTicket.toJson(),
+                        "image": base64Encode(await widget.file.readAsBytes())
+                      });
+                    }
+                  },
+                ),
               ),
               Container(
                 margin: const EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width,
-                child: SecondaryActionButton(text: "Back", onClick: () {
-                  Navigator.pop(context);
-                },),
+                child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    Navigator.pop(context);
+                    
+                  },
+                ),
               )
-              
             ],
           ),
         );

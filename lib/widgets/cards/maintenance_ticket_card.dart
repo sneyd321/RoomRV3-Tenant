@@ -1,3 +1,4 @@
+import 'package:camera_example/business_logic/house.dart';
 import 'package:camera_example/business_logic/tenant.dart';
 import 'package:camera_example/widgets/Navigation/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,11 +9,12 @@ import '../buttons/IconTextColumn.dart';
 
 class MaintenanceTicketNotificationCard extends StatefulWidget {
   final Tenant tenant;
+  final House house;
   final QueryDocumentSnapshot document;
 
   const MaintenanceTicketNotificationCard({
     Key? key,
-    required this.document, required this.tenant,
+    required this.document, required this.tenant, required this.house,
   }) : super(key: key);
 
   @override
@@ -26,26 +28,23 @@ class _MaintenanceTicketNotificationCardState
     return DateFormat('dd/MM/yyyy').format(timestamp.toDate());
   }
 
+  
   void showMaintenanceTicketDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  "Maintenance Ticket #12",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                Text(
+                  "Maintenance Ticket #${widget.document.get("data")["maintenanceTicketId"]}",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                const Text("Date Issued: 12/12/12",
+                Text("Date Issued: ${parseTimestamp(widget.document.get("dateCreated"))}",
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                const Text("Urgency: ",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   height: 200,
@@ -55,45 +54,51 @@ class _MaintenanceTicketNotificationCardState
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: Image.network(
-                          "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_4.jpg",
+                          widget.document.get("data")['imageURL'],
                         ).image,
                       )),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  child: const Text("This is a description")),
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(widget.document.get("data")["description"])),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconTextColumn(
-                  profileColor: Colors.blueGrey,
-                  iconColor: Colors.white,
-                  textColor: Colors.black,
-                  icon: Icons.comment,
-                  text: "Comment",
-                  onClick: () {
-                    Navigation().navigateToCommentsPage(context, widget.tenant, "UEWUV6", 1);
-                  }),
-              IconTextColumn(
-                  profileColor: Colors.blueGrey,
-                  iconColor: Colors.white,
-                  textColor: Colors.black,
-                  icon: Icons.date_range,
-                  text: "Schedule",
-                  onClick: () {
-                    const snackBar = SnackBar(
-                      content: Text('Feature Coming Soon'),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }),
-              IconTextColumn(
-                  profileColor: Colors.blueGrey,
-                  iconColor: Colors.white,
-                  textColor: Colors.black,
-                  icon: Icons.call,
-                  text: "Call Landlord",
-                  onClick: () {}),
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.comment,
+                        text: "Comment",
+                        onClick: () {
+                          Navigation().navigateToCommentsPage(
+                              context, widget.tenant, widget.house.houseKey, widget.document.get("data")["maintenanceTicketId"]);
+                        }),
+                    IconTextColumn(
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.date_range,
+                        text: "Schedule",
+                        onClick: () {
+                          const snackBar = SnackBar(
+                            content: Text('Feature Coming Soon'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }),
+                    IconTextColumn(
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.call,
+                        text: "Call Tenant",
+                        onClick: () {
+                          const snackBar = SnackBar(
+                            content: Text('Feature Coming Soon'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }),
                   ],
                 )
               ],
