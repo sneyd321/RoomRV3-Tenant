@@ -39,9 +39,7 @@ class _NotificationLimitState extends State<NotificationLimit> {
         }
         List<QueryDocumentSnapshot> queryDocumentSnapshots =
             snapshot.data!.docs;
-        setState(() {
-          
-        });
+     
     
         return NotificationSearch(
             tenant: widget.tenant, documents: queryDocumentSnapshots, house: widget.house,);

@@ -74,31 +74,38 @@ class _NotificationSearchState extends State<NotificationSearch> {
           ),
         ),
         Expanded(
-          child: CardSliverListView(
-            items: queryDocumentSnapshots,
-            builder: (context, index) {
-              QueryDocumentSnapshot document = queryDocumentSnapshots[index];
-              
-              switch (document.get("Name")) {
-                case "MaintenanceTicket":
-                  return MaintenanceTicketNotificationCard(
-                    document: document, tenant: widget.tenant, house: widget.house,
+          child: RefreshIndicator(
+            onRefresh: () async {
+              setState(() {
                 
-                  );
-                case "DownloadLease":
-                  return DownloadLeaseNotificationCard(
-                    document: document,
-                  );
-                case "Custom":
-                  return CustomNotificationCard(document: document);
-                case "ApproveTenant":
-                return ApproveTenantNotificationCard(document: document);
-                default:
-                  return Text(
-                      "TODO: Make notification for event: ${document.get("Name")}");
-              }
+              });
             },
-            controller: ScrollController(),
+            child: CardSliverListView(
+              items: queryDocumentSnapshots,
+              builder: (context, index) {
+                QueryDocumentSnapshot document = queryDocumentSnapshots[index];
+                
+                switch (document.get("Name")) {
+                  case "MaintenanceTicket":
+                    return MaintenanceTicketNotificationCard(
+                      document: document, tenant: widget.tenant, house: widget.house,
+                  
+                    );
+                  case "DownloadLease":
+                    return DownloadLeaseNotificationCard(
+                      document: document,
+                    );
+                  case "Custom":
+                    return CustomNotificationCard(document: document);
+                  case "ApproveTenant":
+                  return ApproveTenantNotificationCard(document: document);
+                  default:
+                    return Text(
+                        "TODO: Make notification for event: ${document.get("Name")}");
+                }
+              },
+              controller: ScrollController(),
+            ),
           ),
         ),
       ],
