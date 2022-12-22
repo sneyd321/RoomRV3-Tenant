@@ -93,6 +93,7 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
           builder: (runMutation) {
             return SafeArea(
                 child: Scaffold(
+              resizeToAvoidBottomInset: false,
               body: ListView(
                   children: [
                     Container(
