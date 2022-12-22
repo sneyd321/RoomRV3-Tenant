@@ -97,10 +97,11 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
           builder: (runMutation) {
             return SafeArea(
                 child: Scaffold(
-                  resizeToAvoidBottomInset: false,
-              body: ListView(
+              body: Column(
                 children: [
-                  Form(
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Form(
                           key: formKey,
                           child: Column(
                             children: [
@@ -150,8 +151,8 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
                              })
                             ],
                           )),
-                    
-                  
+                    ),
+                  ),
                   Container(
                     margin: const EdgeInsets.all(8),
                     width: MediaQuery.of(context).size.width,
