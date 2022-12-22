@@ -18,6 +18,7 @@ class NotificationLimit extends StatefulWidget {
 }
 
 class _NotificationLimitState extends State<NotificationLimit> {
+  int currentLength = 0;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -39,6 +40,7 @@ class _NotificationLimitState extends State<NotificationLimit> {
         }
         List<QueryDocumentSnapshot> queryDocumentSnapshots =
             snapshot.data!.docs;
+        
      
     
         return NotificationSearch(

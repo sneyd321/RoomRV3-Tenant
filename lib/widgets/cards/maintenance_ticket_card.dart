@@ -92,7 +92,7 @@ class _MaintenanceTicketNotificationCardState
                         iconColor: Colors.white,
                         textColor: Colors.black,
                         icon: Icons.call,
-                        text: "Call Tenant",
+                        text: "Call Landlord",
                         onClick: () {
                           const snackBar = SnackBar(
                             content: Text('Feature Coming Soon'),
@@ -131,7 +131,9 @@ class _MaintenanceTicketNotificationCardState
                   "Reported on ${parseTimestamp(widget.document["dateCreated"])}"),
               trailing: IconButton(
                 icon: const Icon(Icons.chevron_right_rounded),
-                onPressed: (() {}),
+                onPressed: (() {
+                  showMaintenanceTicketDialog();
+                }),
               ))),
     );
   }

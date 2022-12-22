@@ -26,15 +26,10 @@ class _NotificationSearchState extends State<NotificationSearch> {
       TextEditingController();
   List<QueryDocumentSnapshot> queryDocumentSnapshots = [];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    queryDocumentSnapshots = widget.documents;
-  }
 
   @override
   Widget build(BuildContext context) {
+    queryDocumentSnapshots = widget.documents;
     return Column(
       children: [
         Container(
@@ -60,7 +55,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
                 filled: true,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   onPressed: (() {
                     setState(() {
                       searchTextEditingController.text = "";
@@ -74,40 +69,36 @@ class _NotificationSearchState extends State<NotificationSearch> {
           ),
         ),
         Expanded(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              setState(() {
-                
-              });
-            },
-            child: CardSliverListView(
-              items: queryDocumentSnapshots,
-              builder: (context, index) {
-                QueryDocumentSnapshot document = queryDocumentSnapshots[index];
-                
-                switch (document.get("Name")) {
-                  case "MaintenanceTicket":
-                    return MaintenanceTicketNotificationCard(
-                      document: document, tenant: widget.tenant, house: widget.house,
+          child: 
+            CardSliverListView(
+                items: queryDocumentSnapshots,
+                builder: (context, index) {
+                  QueryDocumentSnapshot document = queryDocumentSnapshots[index];
                   
-                    );
-                  case "DownloadLease":
-                    return DownloadLeaseNotificationCard(
-                      document: document,
-                    );
-                  case "Custom":
-                    return CustomNotificationCard(document: document);
-                  case "ApproveTenant":
-                  return ApproveTenantNotificationCard(document: document);
-                  default:
-                    return Text(
-                        "TODO: Make notification for event: ${document.get("Name")}");
-                }
-              },
-              controller: ScrollController(),
-            ),
+                  switch (document.get("Name")) {
+                    case "MaintenanceTicket":
+                      return MaintenanceTicketNotificationCard(
+                        document: document, tenant: widget.tenant, house: widget.house,
+                    
+                      );
+                    case "DownloadLease":
+                      return DownloadLeaseNotificationCard(
+                        document: document,
+                      );
+                    case "Custom":
+                      return CustomNotificationCard(document: document);
+                    case "ApproveTenant":
+                    return ApproveTenantNotificationCard(document: document);
+                    default:
+                      return Text(
+                          "TODO: Make notification for event: ${document.get("Name")}");
+                  }
+                },
+                controller: ScrollController(),
+              ),
           ),
-        ),
+          
+        
       ],
     );
   }

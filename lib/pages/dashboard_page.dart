@@ -78,8 +78,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                     widget.tenant);
                             if (result != null) {
                               const snackBar = SnackBar(
+                                duration: Duration(seconds: 3),
                                 content: Text(
-                                    'Maintenance Ticket Uploaded Successfully! You will recieve a notification here when completed.'),
+                                    'Maintenance Ticket Uploaded Successfully! Ticket will appear on this page shortly'),
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
