@@ -54,7 +54,7 @@ class _ApproveTenantNotificationCardState
                         ),
                         Container(
                           margin: const EdgeInsets.only(
-                              top: 16, bottom: 16, right: 8),
+                              top: 24, bottom: 24, right: 8),
                           child: ElevatedButton(
                               onPressed: () async {
                                 if (widget.document

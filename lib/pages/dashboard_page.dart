@@ -37,66 +37,71 @@ class _DashboardPageState extends State<DashboardPage> {
     return GraphQLProvider(
       client: GQLClient().getClient(),
       child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.logout)),
-          ),
-          body: QueryHelper(
-            isList: false,
-            onComplete: (json) {
-              if (json == null) return const CircularProgressIndicator();
-              House house = House.fromJson(json);
-
-              return Column(
-                children: [
-                  Expanded(
-                      child: NotificationLimit(
-                          house: house, tenant: widget.tenant)),
-                  Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 4),
-                      alignment: Alignment.topRight,
-                      child: FloatingActionButton.extended(
-                        onPressed: () async {
-                          image = await picker.pickImage(
-                            source: ImageSource.camera,
-                            maxWidth: MediaQuery.of(context).size.width,
-                            maxHeight: MediaQuery.of(context).size.height,
-                            imageQuality: 100,
-                          );
-
-                          if (image != null) {
-                            String? result = await Navigation()
-                                .navigateToCreateMaintenanceTicketPage(
-                                    context,
-                                    image,
-                                    widget.house.houseKey,
-                                    widget.tenant);
-                            if (result != null) {
-                              const snackBar = SnackBar(
-                                duration: Duration(seconds: 3),
-                                content: Text(
-                                    'Maintenance Ticket Uploaded Successfully! Ticket will appear on this page shortly'),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          }
+        child: QueryHelper(
+          isList: false,
+          onComplete: (json) {
+            if (json == null) return const CircularProgressIndicator();
+            House house = House.fromJson(json);
+            return Scaffold(
+                appBar: AppBar(
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          Navigation().navigateToMorePage(
+                              context, house, widget.tenant);
                         },
-                        label: const Text("Report Maintenance Ticket"),
-                        icon: const Icon(Icons.add),
-                      )),
-                  BottomNavBar(tenant: widget.tenant, house: house)
-                ],
-              );
-            },
-            queryName: 'getHouse',
-            variables: {"houseKey": widget.house.houseKey},
-          ),
+                        icon: const Icon(Icons.list))
+                  ],
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.logout)),
+                ),
+                body: Column(
+                  children: [
+                    Expanded(
+                        child: NotificationLimit(
+                            house: house, tenant: widget.tenant)),
+                    Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 4),
+                        alignment: Alignment.topRight,
+                        child: FloatingActionButton.extended(
+                          onPressed: () async {
+                            image = await picker.pickImage(
+                              source: ImageSource.camera,
+                              maxWidth: MediaQuery.of(context).size.width,
+                              maxHeight: MediaQuery.of(context).size.height,
+                              imageQuality: 100,
+                            );
+
+                            if (image != null) {
+                              String? result = await Navigation()
+                                  .navigateToCreateMaintenanceTicketPage(
+                                      context,
+                                      image,
+                                      widget.house.houseKey,
+                                      widget.tenant);
+                              if (result != null) {
+                                const snackBar = SnackBar(
+                                  duration: Duration(seconds: 3),
+                                  content: Text(
+                                      'Maintenance Ticket Uploaded Successfully! Ticket will appear on this page shortly'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            }
+                          },
+                          label: const Text("Report Maintenance Ticket"),
+                          icon: const Icon(Icons.add),
+                        )),
+                  ],
+                ));
+          },
+          queryName: 'getHouse',
+          variables: {"houseKey": widget.house.houseKey},
         ),
       ),
     );

@@ -90,7 +90,8 @@ class PaymentsPage extends StatelessWidget {
               ],
             ),
           ),
-          const Text("TODO: Pay rent coming soon")
+          const Card(
+            child: ListTile(title: Text("Upcoming Payments coming soon")))
         ],
       ),
     ));
